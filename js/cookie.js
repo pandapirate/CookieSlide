@@ -7,8 +7,10 @@
  */
 var cookieImages = ["images/Croissant.png", "images/Cupcake.png", "images/Danish.png", "images/Donut.png", "images/Macaroon.png", "images/Star.png"];
 
-function Cookie(type) {
+function Cookie(type, row, column) {
     this.type = type;
     this.imageName = cookieImages[this.type];
+    this.row = row;
+    this.column = column;
 
 }
