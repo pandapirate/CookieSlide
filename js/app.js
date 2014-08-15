@@ -6,9 +6,10 @@
  * To change this template use File | Settings | File Templates.
  */
 var cookies = [];
-var width = 6;
+var width = 5;
 var height = 8;
-var length = 50;
+var cookieW = 50;
+var cookieH = 50;
 
 $(document).ready(function(){
     randomCookies();
@@ -24,8 +25,15 @@ $(window).resize(function() {
 });
 
 var resizeMainDiv = function () {
-    $('#CookieContainer').css('width', $(window).width()-4);
-    $('#CookieContainer').css('height', $(window).height()-4);
+    var windowWidth = $(window).width() - 4;
+    var windowHeight = $(window).height() - 4;
+
+    $('#CookieContainer').css('width', windowWidth);
+    $('#CookieContainer').css('height', windowHeight);
+
+    cookieW = windowWidth/(width+1);
+    cookieH = windowHeight/(height+1);
+
     drawCookie();
 };
 
@@ -53,17 +61,23 @@ var drawCookie = function() {
             $('#CookieContainer').append("<div class='Cookie' style='position: absolute; top: " + pos.top + "px; left: " + pos.left+ "px;'><img class='Cookie-Img' src='" + cookie.imageName + "'></div>")
         }
     }
+    resizeCookies();
+};
+
+var resizeCookies = function() {
+    $('.Cookie').css('width', cookieW);
+    $('.Cookie').css('height', cookieH);
 };
 
 var getPositionForCookie = function(row, column) {
-    var windowWidth = $(window).width() - 8;
-    var windowHeight = $(window).height() - 8;
+    var windowWidth = $(window).width() - 4;
+    var windowHeight = $(window).height() - 4;
 
     var w = windowWidth / (width+1);
     var h = windowHeight / (height+1);
 
-    var top = (row+1) * h - length/2;
-    var left = (column+1) * w - length/2;
+    var top = (row+1) * h - cookieH/2;
+    var left = (column+1) * w - cookieW/2;
 
     return {top:Math.floor(top), left:Math.floor(left)}
 };
